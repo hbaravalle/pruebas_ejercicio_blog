@@ -30,15 +30,9 @@
     
     >
       <div class="d-flex flex-column">
-        <h1 class="text-white text-center fw-bolder mb-3"><%= article.title %></h1>
-        <p class="text-white text-center fs-5" style="font-family: 'Lora'; font-style: italic;" >
-          <%  if (!!article.userData.firstName) { %>
-          <%= `Created by ${article.userData.firstName} ${article.userData.lastName} on ${article.articleDate.parsedCreatedAt}` %></p>
-
-          <% } else{ %>
-          <%= `Created by ${article.userData.username} on ${article.articleDate.parsedCreatedAt}` %></p>
-          <% } %>
-        </div>
+        <h1 class="text-white text-center fw-bolder mb-3"><%= article.dataValues.title %></h1>
+        <p class="text-white text-center fs-5" style="font-family: 'Lora'; font-style: italic;" ><%= `Created by ${article.dataValues.author} on ${parsedArticleDates.parsedCreatedAt}` %></p>
+      </div>
     </div>
     
     <div class="row mx-auto mt-5">
@@ -47,13 +41,14 @@
             <pre style="white-space: pre-wrap;
             font-family: Helvetica Neue;" class="fs-6"><%= article.content %></pre>
           </p> 
+          <p class="text-secondary mt-4" style="font-size: 0.85rem;" >Last updated: <%= parsedArticleDates.parsedUpdatedAt %></p>
         <div class="comment mb-1 mt-5 d-flex ">
           <h3>Add your comment</h3>
         </div>
         <form  action="/article/<%= article.id %>/create-comment" method="post" id="commentForm" class="form-group mt-2">     
           <div>
-            <input  required type="text" id="username" name="username" placeholder="Name" class="form-control mb-3" >
-            <textarea   required id="comment" name="comment" placeholder="Write your comment..." class="form-control mb-3" style="height: 150px"></textarea>
+            <input type="text" id="name" name="name" placeholder="Name" class="form-control mb-3" >
+            <textarea id="comment" name="comment" placeholder="Write your comment..." class="form-control mb-3" style="height: 150px"></textarea>
             <div class="d-grid gap-2">
               <button type="submit" name="submit" class="btn-primary btn mb-5">Send</button>
             </div>
@@ -68,7 +63,7 @@
            <div>
             <% for (const comment of comments) {%>
                 <p>"<%= comment.content %>"</p>
-                <p style="font-family: 'Lora'; font-style: italic;"><%= comment.user.username %></p>
+                <p style="font-family: 'Lora'; font-style: italic;"><%= comment.name %></p>
                 <hr>
                 <% } %>
            </div>

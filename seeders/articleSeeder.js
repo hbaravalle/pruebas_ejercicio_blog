@@ -2,7 +2,7 @@ const { faker } = require("@faker-js/faker");
 const { Article } = require("../models");
 const { User } = require("../models");
 
-faker.locale = "es";
+faker.locale = "en";
 
 module.exports = async () => {
   const articles = [];
@@ -25,10 +25,8 @@ module.exports = async () => {
     articles.push({
       title: faker.lorem.sentence(5),
       content: faker.lorem.paragraphs(5, "\n\n"),
-      image: faker.image.abstract(),
-      author: usersLoaded[i].get({ plain: true }).id,
-      //esto se lo hice para que no las creara a todas en el mismo momento
-      createdAt: faker.date.past(),
+      image: faker.image.abstract(1000, 1000, true),
+      user_id: faker.datatype.number({ min: 1, max: 5 }),
     });
   }
 

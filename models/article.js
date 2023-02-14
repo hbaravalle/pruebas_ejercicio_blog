@@ -18,12 +18,6 @@ class Article extends Model {
         image: {
           type: DataTypes.BLOB,
         },
-        author: {
-          type: DataTypes.BIGINT.UNSIGNED,
-        },
-        createdAt: {
-          type: DataTypes.DATE,
-        },
       },
       {
         sequelize,
